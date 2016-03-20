@@ -9,13 +9,13 @@ describe('08. `const` is like `let` plus read-only', () => {
 
     it('number', () => {
       const constNum = 0;
-      constNum = 1;
+      //constNum += 1;
       assert.equal(constNum, 0);
     });
 
     it('string', () => {
       const constString = 'I am a const';
-      constString = 'Cant change you?';
+      //constString = 'Cant change you?';
       assert.equal(constString, 'I am a const');
     });
 
@@ -30,14 +30,14 @@ describe('08. `const` is like `let` plus read-only', () => {
   describe('complex types are NOT fully read-only', () => {
 
     it('array', () => {
-      const arr = [42, 23];
-      arr[0] = 0;
+      const arr = [0, 23];
+      arr[0] = 42;
       assert.equal(arr[0], 42);
     });
     
     it('object', () => {
       const obj = {x: 1};
-      obj.x = 2;
+      obj.x = 3;
       assert.equal(obj.x, 3);
     });
     
