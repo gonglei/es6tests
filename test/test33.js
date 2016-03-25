@@ -6,19 +6,19 @@ import assert from 'assert';
 describe('33. `Array.prototype.findIndex` makes finding items in arrays easier', () => {
 
   it('takes a compare function, returns the index where it returned true', function() {
-    const foundAt = [false, true].findIndex(item);
+    const foundAt = [false, true].findIndex(item => item === true);
     
     assert.equal(foundAt, 1);
   });
 
   it('returns the first position it was found at', function() {
-    const foundAt = [0, 1, 1, 1].findIndex(item => item = 1);
+    const foundAt = [0, 1, 1, 1].findIndex(item => item === 1);
     
     assert.equal(foundAt, 1);
   });
 
   it('returns `-1` when nothing was found', function() {
-    const foundAt = [1, 2, 3].findIndex(item => item > 1);
+    const foundAt = [1, 2, 3].findIndex(item => item < 1);
     
     assert.equal(foundAt, -1);
   });
@@ -26,9 +26,9 @@ describe('33. `Array.prototype.findIndex` makes finding items in arrays easier',
   it('the findIndex callback gets the item, index and array as arguments', function() {
     const three = 3;
     const containsThree = arr => arr.indexOf(three) > -1;
-    function theSecondThree(index, arr) {
+    function theSecondThree(item, index, arr) {
       const preceedingItems = arr.slice(0, index);
-      return containsThree(preceedingItems);
+      return containsThree(preceedingItems) && item === three;
     }
     const foundAt = [1, 1, 2, 3, 3, 3].findIndex(theSecondThree);
     
@@ -38,7 +38,7 @@ describe('33. `Array.prototype.findIndex` makes finding items in arrays easier',
   it('combined with destructuring complex compares become short', function() {
     const bob = {name: 'Bob'};
     const alice = {name: 'Alice'};
-    const foundAt = [bob, alice].findIndex(({name:{length:l}}) => length > 3);
+    const foundAt = [bob, alice].findIndex(({name}) => name.length > 3);
     
     assert.equal(foundAt, 1);
   });
