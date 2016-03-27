@@ -14,14 +14,13 @@ describe('52. pass a value to a generator', () => {
     var convertedToAnArray = Array.from(generatorFunction());
     // way #2
     var iterator = generatorFunction();
-    var iteratedOver = [iterator.next().___, iterator.___];
+    var iteratedOver = [iterator.next().value, iterator.next().value];
     assert.deepEqual(convertedToAnArray, iteratedOver);
   });
 
   it('pass a value to the iterator', function() {
     function* generatorFunction() {
-      yield 1;
-      yield param;
+      yield (yield 1);
     }
     var iterator = generatorFunction();
     var iteratedOver = [iterator.next().value, iterator.next(2).value];
@@ -30,7 +29,7 @@ describe('52. pass a value to a generator', () => {
 
   it('a value passed to the 1st `next()` call is ignored', function() {
     function* generatorFunction() {
-      yield 1;
+      yield (yield 1);
     }
     let iterator = generatorFunction();
     const values = [
