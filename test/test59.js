@@ -6,20 +6,20 @@ import assert from 'assert';
 describe('59. `Reflect.apply` calls a target function', function() {
 
   it('it is a static method', function() {
-    const expectedType = '???';
+    const expectedType = 'function';
     
     assert.equal(typeof Reflect.apply, expectedType)
   });
   
   it('it calls a callable, e.g. a function', function() {
-    let fn;
+    let fn = () => 42;
     
     assert.equal(Reflect.apply(fn), 42);
   });
   
   it('passing it a non-callable throws a TypeError', function() {
     let applyOnUncallable = () => { 
-      Reflect.apply(Array); 
+      Reflect.apply(1); 
     };
     
     assert.throws(applyOnUncallable, TypeError);
@@ -32,13 +32,13 @@ describe('59. `Reflect.apply` calls a target function', function() {
     }
     let instance = new FourtyTwo();
     
-    const fourtyTwo = Reflect.apply(instance.fn);
+    const fourtyTwo = Reflect.apply(instance.fn, { value: 42 });
     
     assert.deepEqual(fourtyTwo, 42);
   });
   
   it('the 3rd argument is an array of parameters passed to the call', function() {
-    let emptyArrayWithFiveElements = Reflect.apply(Array);
+    let emptyArrayWithFiveElements = Reflect.apply(Array, null, [5]);
     
     assert.deepEqual(emptyArrayWithFiveElements.fill(42), [42, 42, 42, 42, 42]);
   });
