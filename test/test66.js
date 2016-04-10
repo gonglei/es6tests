@@ -7,7 +7,7 @@ describe('66. An object literal can also contain getters', () => {
 
   it('just prefix the property with `get` (and make it a function)', function() {
     const obj = {
-      x() { return 'ax'; }
+      get x() { return 'ax'; }
     };
     
     assert.equal(obj.x, 'ax');
@@ -15,7 +15,7 @@ describe('66. An object literal can also contain getters', () => {
 
   it('must have NO parameters', function() {
     const obj = {
-      x(param) { return 'ax'; }
+      get x() { return 'ax'; }
     };
     
     assert.equal(obj.x, 'ax');
@@ -25,7 +25,7 @@ describe('66. An object literal can also contain getters', () => {
   it('can be a computed property (an expression enclosed in `[]`)', function() {
     const keyName = 'x';
     const obj = {
-      get keyName() { return 'ax'; }
+      get [keyName]() { return 'ax'; }
     };
     
     assert.equal(obj.x, 'ax');
@@ -36,6 +36,7 @@ describe('66. An object literal can also contain getters', () => {
       get x() { return 'ax'; }
     };
     
+    delete obj.x;
     assert.equal(obj.x, void 0);
   });
 
