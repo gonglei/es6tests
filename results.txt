@@ -1,0 +1,743 @@
+installation of packages
+  ✓ should work.
+
+01. a template string, is wrapped in ` (backticks) instead of ' or "
+  by default, behaves like a normal string
+    ✓ just surrounded by backticks
+  can evaluate variables, which are wrapped in "${" and "}"
+    ✓ e.g. a simple variable "${x}" just gets evaluated
+    ✓ multiple variables get evaluated too
+  can evaluate any expression, wrapped inside "${...}"
+    ✓ all inside "${...}" gets evaluated
+    ✓ inside "${...}" can also be a function call
+
+02. template string, can contain multiline content
+  ✓ a normal string can`t span across multiple lines
+  ✓ wrapped in backticks it can span over multiple lines
+  ✓ even over more than two lines
+  and expressions inside work too
+    ✓ like simple variables
+    ✓ also here spaces matter
+
+03. tagged template strings, are an advanced form of template strings
+  ✓ syntax: prefix the template string with a function to call (without "()" around it)
+  the function can access each part of the template
+    the 1st parameter - receives only the pure strings of the template string
+      ✓ the strings are an array
+      ✓ expressions are NOT passed to it
+    the 2nd and following parameters - contain the values of the processed substitution
+      ✓ the 2nd parameter contains the first expression`s value
+      ✓ the 3rd parameter contains the second expression`s value
+      ✓ using ES6 rest syntax, all values can be accessed via one variable
+
+04. on tagged template strings you can use the `raw` property like so `s.raw`
+  ✓ the `raw` property accesses the string as it was entered
+  ✓ `raw` can access the backslash of a line-break
+  `String.raw` as a static function
+    ✓ concats the raw strings
+    ✓ two raw-templates-string-backslashes equal two escaped backslashes
+    ✓ works on unicodes too
+
+05. arrow functions
+  ✓ are shorter to write
+  ✓ a single expression, without curly braces returns too
+  ✓ one parameter can be written without parens
+  ✓ many params require parens
+  ✓ body needs parens to return an object
+
+06. arrow functions have lexical `this`, no dynamic `this`
+  ✓ bound at definition time, use `=>`
+  ✓ can NOT bind a different context
+  ✓ `arguments` doesnt work inside arrow functions
+
+07. `let` restricts the scope of the variable to the current block
+  `let` vs. `var`
+    ✓ `var` works as usual
+    ✓ `let` restricts scope to inside the block
+  `let` usage
+    ✓ `let` use in `for` loops
+    ✓ create artifical scope, using curly braces
+
+08. `const` is like `let` plus read-only
+  ✓ const scope leaks too
+  scalar values are read-only
+    ✓ number
+    ✓ string
+  complex types are NOT fully read-only
+    ✓ array
+    ✓ object
+
+09. the object literal allows for new shorthands
+  with variables
+    ✓ the short version for `{x: x}` is {x}
+    ✓ works with multiple variables too
+  with methods
+    ✓ using the name only uses it as key
+    ✓ a different key must be given explicitly, just like before ES6
+    ✓ inline functions, can written as `obj={func(){}}` instead of `obj={func:function(){}}`
+
+10. destructuring arrays makes shorter code
+  ✓ extract value from array, e.g. extract 0 into x like so `let [x] = [0];`
+  ✓ swap two variables, in one operation
+  ✓ leading commas
+  ✓ extract from nested arrays
+  ✓ chained assignments
+  ✓ in for-of loop
+
+11. destructuring also works on strings
+  ✓ destructure every character
+  ✓ missing characters are undefined
+  ✓ unicode character work too
+
+12. destructuring objects
+  ✓ is simple
+  nested
+    ✓ multiple objects
+    ✓ object and array
+    ✓ array and object
+  interesting
+    ✓ missing refs become undefined
+    ✓ destructure from builtins (string)
+
+13. destructuring can also have default values
+  ✓ for an empty array
+  ✓ for a missing value
+  ✓ in an object
+  ✓ if the value is undefined
+  ✓ also a string works with defaults
+
+14. destructuring function parameters
+  destruct parameters
+    ✓ multiple params from object
+    ✓ multiple params from array/object
+  default values
+    ✓ for simple values
+    ✓ for a missing array value
+    ✓ mix of parameter types
+
+15. assign object property values to new variables while destructuring
+  for simple objects
+    ✓ use a colon after the property name, like so `propertyName: newName`
+    ✓ assign a new name and give it a default value using `= <default value>`
+  for function parameter names
+    ✓ do it the same way, with a colon behind it
+    ✓ giving it a default value is possible too, like above
+
+16. object literal properties may be computed values
+  ✓ a computed property `x` needs to be surrounded by `[]`
+  ✓ can also get a function assigned
+  ✓ the key may also be the result of a function call
+  ✓ the key can also be constructed by an expression
+  ✓ accessor keys can be computed names too
+
+17. unicode strings
+  ✓ are \u prefixed
+  ✓ value is 4 bytes/digits
+  ✓ value is hexadecimal
+  ✓ curly braces may surround the value
+
+18. rest in function params
+  ✓ must be the last parameter
+  ✓ can be used to get all other parameters
+  ✓ makes `arguments` obsolete
+  ✓ eliminate `arguments`!!!
+
+19. rest with destructuring
+  ✓ rest parameter must be last
+  ✓ assign rest of an array to a variable
+  ✓ concat differently
+  ✓ `apply` made simple, even for constructors
+
+20. spread with arrays
+  ✓ extracts each array item
+  ✓ in combination with rest
+  ✓ spreading into the rest
+  used as function parameter
+    ✓ prefix with `...` to spread as function params
+    ✓ pass an array of numbers to Math.max()
+
+21. spread with strings
+  ✓ simply spread each char of a string
+  ✓ extracts each array item
+  ✓ works anywhere inside an array (must not be last)
+  ✓ dont confuse with the rest operator
+  ✓ passed as function parameter
+
+22. class creation
+  ✓ is as simple as `class XXX {}`
+  ✓ class is block scoped
+  ✓ special method is `constructor`
+  ✓ defining a method is simple
+  ✓ multiple methods need no commas (opposed to object notation)
+  ✓ anonymous class
+
+23. class accessors (getter and setter)
+  ✓ only a getter is defined like a method prefixed with `get`
+  ✓ a setter has the prefix `set`
+  dynamic accessors
+    ✓ a dynamic getter name is enclosed in [ and ]
+    ✓ a dynamic setter name as well
+
+24. inside a class you can use the `static` keyword
+  for methods
+    ✓ a static method just has the prefix `static`
+    ✓ the method name can be dynamic/computed at runtime
+  for accessors
+    ✓ a getter name can be static, just prefix it with `static`
+    ✓ even a static getter name can be dynamic/computed at runtime
+
+25. classes can inherit from another
+  the default super class is Object
+    ✓ class A is an instance of Object
+    ✓ B extends A, B is also instance of Object
+    ✓ class can extend `null`, not an instance of Object
+  instance of
+    ✓ when B inherits from A, `new B()` is also an instance of A
+    ✓ extend over multiple levels
+
+26. class can inherit from another
+  ✓ extend an `old style` "class", a function, still works
+  prototypes are as you know them
+    ✓ A is the prototype of B
+    ✓ A`s prototype is also B`s prototype
+  `extends` using an expression
+    ✓ eg the inline assignment of the parent class
+    ✓ or calling a function that returns the parent class
+
+27. inside a class use `super` to access parent methods
+  ✓ use of `super` without `extends` fails (already when transpiling)
+  ✓ `super` with `extends` calls the method of the given name of the parent class
+  ✓ when overridden a method does NOT automatically call its super method
+  ✓ `super` works across any number of levels of inheritance
+  ✓ accessing an undefined member of the parent class returns `undefined`
+
+28. class - super in constructor
+  ✓ if you `extend` a class, use `super()` to call the parent constructor
+  ✓ `super()` may also take params
+  ✓ it is important where you place your `super()` call!
+  ✓ use `super.constructor` to find out if there is a parent constructor
+
+29. `Array.from` converts an array-like object or list into an Array
+  ✓ call `Array.from` with an array-like object
+  custom conversion using a map function as second param
+    ✓ we can modify the value before putting it in the array
+    ✓ and we also get the object`s key as second parameter
+
+30. `Array.of` creates an array with the given arguments as elements
+  ✓ dont mix it up with `Array(10)`, where the argument is the array length
+  ✓ puts all arguments into array elements
+  ✓ takes any kind and number of arguments
+
+31. `Array.prototype.fill` can fill up an array with one value
+  ✓ `fill(0)` will populate `0` into each array element
+  ✓ fill only changes content, adds no new elements
+  ✓ second parameter to `fill()` is the position where to start filling
+  ✓ third parameter is the position where filling stops
+
+32. `Array.prototype.find` makes finding items in arrays easier
+  ✓ takes a compare function
+  ✓ returns the first value found
+  ✓ returns `undefined` when nothing was found
+  ✓ combined with destructuring complex compares become short
+
+33. `Array.prototype.findIndex` makes finding items in arrays easier
+  ✓ takes a compare function, returns the index where it returned true
+  ✓ returns the first position it was found at
+  ✓ returns `-1` when nothing was found
+  ✓ the findIndex callback gets the item, index and array as arguments
+  ✓ combined with destructuring complex compares become short
+
+34. Symbol
+  ✓ `Symbol` lives in the global scope
+  ✓ every `Symbol()` is unique
+  ✓ every `Symbol()` is unique, also with the same parameter
+  ✓ `typeof Symbol()` returns "symbol"
+  ✓ `new Symbol()` throws an exception, to prevent creation of Symbol wrapper objects
+
+35. `Symbol.for` for registering Symbols globally
+  ✓ creates a new symbol (check via `typeof`)
+  ✓ stores the symbol in a runtime-wide registry and retrieves it from it
+  ✓ is different to `Symbol()` which creates a symbol every time and does not store it
+  `.toString()` on a Symbol
+    ✓ also contains the key given to `Symbol.for()`
+    NOTE: the description of two different symbols
+      ✓ might be the same
+      ✓ but the symbols are not the same!
+
+36. `Symbol.keyFor()` gets the symbol key for a given symbol
+  ✓ pass the symbol to `keyFor()` and you get its key
+  ✓ local symbols are not in the runtime-wide registry
+  ✓ well-known symbols are not in the runtime-wide registry either
+  ✓ for non-Symbols throws an error
+
+37. array is a built-in iterable object
+  the iterator
+    ✓ an array has an iterator, which is a function
+    ✓ can be looped with `for-of`, which expects an iterable
+  the iterator protocol
+    ✓ calling `next()` on an iterator returns an object according to the iterator protocol
+    ✓ the after-last element has done=true
+
+38. string is a built-in iterable object
+  string is iterable
+    ✓ the string`s object key `Symbol.iterator` is a function
+    ✓ use `Array.from()` to make an array out of any iterable
+  a string`s iterator
+    ✓ has a special string representation
+    ✓ `iterator.next()` returns an object according to the iterator protocol
+    ✓ the after-last call to `iterator.next()` says done=true, no more elements
+
+39. A simple iterable without items inside, implementing the right protocol
+  the `iteratorFunction` needs to comply to the iterator protocol
+    ✓ must return an object
+    ✓ the object must have a function assigned to a key `next`
+    ✓ calling `next()` must return an object with `{done: true}`
+  the iterable
+    ✓ must be an object
+    ✓ must have the iterator function assigned to the key `Symbol.iterator`
+  using the iterable
+    ✓ it contains no values
+    ✓ has no `.length` property
+    can be converted to an array
+      ✓ using `Array.from()`
+      ✓ where `.length` is still 0
+
+40. Iterator usages
+  create an iterator/iterable
+    ✓ the `usersIterable` should be iterable
+    ✓ the iterator of `usersIterable` should return an object
+    ✓ the iterator of `usersIterable` should have a next function
+  fill the iterable with content using `ConsumableUsers`
+    using the iterator
+      ✓ should return `Alice` as first user
+      ✓ should return `Bob` as second user
+      ✓ should return `done:true`, which means there are no more items
+    using built-in constructs
+      ✓ use `Array.from()` to convert an iterable to an array
+      ✓ use for-of to loop over an iterable
+      ✓ use the spread-operator to convert/add iterable to an array
+      ✓ destructure an iterable like an array
+
+41. `[].entries()` returns an iterator object with all entries
+  ✓ returns key+value for each element
+  ✓ empty elements contain the value `undefined`
+  returns an iterable
+    ✓ has `next()` to iterate
+
+42. `Array.prototype.keys` returns an iterator for all keys in the array
+  ✓ `keys()` returns an iterator
+  ✓ gets all keys
+  ✓ empty array contains no keys
+  ✓ a sparse array without real values has keys though
+  ✓ also includes holes in sparse arrays
+
+43. `Array.prototype.values` returns an iterator for all values in the array
+  ✓ `values()` returns an iterator
+  ✓ use iterator to drop first key
+  ✓ empty array contains no values
+  ✓ a sparse array without real values has values though
+  ✓ also includes holes in sparse arrays
+
+44. `Map` is a key/value map
+  ✓ `Map` is a new global constructor function
+  ✓ provides `new Map().set()` to add key+value pair, `get()` to read it by key
+  ✓ `has()` tells if map has the given key
+  ✓ a map is iterable
+  ✓ complex types can be keys
+
+45. `Map.prototype.get` returns the element from the map for a key
+  ✓ `get(key)` returns the value stored for this key
+  ✓ multiple calls still return the same value
+  ✓ requires exactly the value as passed to `set()`
+  ✓ leave out the key, and you get the value set for the key `undefined` (void 0)
+  ✓ returns undefined for an unknown key
+
+46. `Map.prototype.set` adds a new element with key and value to a Map
+  ✓ simplest use case is `set(key, value)` and `get(key)`
+  ✓ the key can be a complex type too
+  ✓ calling `set()` again with the same key replaces the value
+  ✓ `set()` returns the map object, it`s chainable
+
+47. `Set` lets you store unique values of any type
+  ✓ `Set` is a new global constructor function
+  ✓ every value in a set is unique
+  ✓ the string "1" is different to the number 1
+  ✓ even NaN is equal to NaN
+  ✓ +0 and -0 are seen as equal
+
+48. `add()` appends a new element to the end of a Set object.
+  ✓ adds every value, of any type, only ones
+  ✓ is chainable
+  ✓ call without params adds undefined
+  ✓ 0, -0 and +0 are equal
+
+49. generator can be created in multiple ways
+  ✓ the most common way is by adding `*` after `function`
+  ✓ as a function expression, by adding a `*` after `function`
+  ✓ inside an object by prefixing the function name with `*`
+  ✓ computed generator names, are just prefixed with a `*`
+  ✓ inside a class the same way
+
+50. a generator returns an iterable object
+  ✓ a generator returns an object
+  ✓ a generator object has a key `Symbol.iterator`
+  ✓ the `Symbol.iterator` is a function
+  ✓ can be looped with `for-of`, which expects an iterable
+
+51. generator - `yield` is used to pause and resume a generator function
+  ✓ converting a generator to an array resumes the generator until all values are received
+  after the first `generator.next()` call
+    ✓ the value is "hello"
+    ✓ and `done` is false
+  after the second `next()` call
+    ✓ `value` is "world"
+    ✓ and `done` is still false
+  after stepping past the last element, calling `next()` that often
+    ✓ `done` property equals true, since there is nothing more to iterator over
+
+52. pass a value to a generator
+  ✓ basics: get the values from a generator in two ways
+  ✓ pass a value to the iterator
+  ✓ a value passed to the 1st `next()` call is ignored
+
+53. initialize a `Map`
+  ✓ a `new Map()` is empty, has size=0
+  ✓ init Map with `[[]]` has a size=1
+  ✓ init a Map with `[[1]]` is the same as `map.set(1, void 0)`
+  ✓ init Map with multiple key+value pairs
+  ✓ keys are unique, the last one is used
+  ✓ init Map from an Object, is a bit of work
+
+54. `Object.is()` determines whether two values are the same
+  scalar values
+    ✓ 1 is the same as 1
+    ✓ int 1 is different to string "1"
+    ✓ strings just have to match
+    ✓ +0 is not the same as -0
+    ✓ NaN is the same as NaN
+  coercion, as in `==` and `===`, does NOT apply
+    ✓ +0 != -0
+    ✓ empty string and `false` are not the same
+    ✓ NaN
+    ✓ NaN 0/0
+  complex values
+    ✓ `{}` is just not the same as `{}`
+    ✓ Map
+
+55. `Number.isInteger()` determines if a value is an integer
+  ✓ `isInteger` is a static function on `Number`
+  zero in different ways
+    ✓ 0 is an integer
+    ✓ 0.000
+    ✓ the string "0" is NOT an integer
+  one in different ways
+    ✓ 0.111 + 0.889
+    ✓ 0.5 + 0.2 + 0.2 + 0.1 = 1 ... isn`t it?
+    ✓ parseInt`ed "1" is an integer
+  what is not an integer
+    ✓ `Number()` is an integer
+    ✓ `{}` is NOT an integer
+    ✓ `0.1` is not an integer
+    ✓ `Number.Infinity` is not an integer
+    ✓ `NaN` is not an integer
+
+56. pass a function to a generator
+  ✓ the generator can receive a function as a value
+  ✓ pass a function to the iterator, which calls it
+  ✓ nesting yielded function calls
+
+57. default parameters make function parameters more flexible
+  ✓ define it using an assignment to the parameter `function(param=1){}`
+  ✓ it is used when undefined is passed
+  ✓ it is not used when a value is given
+  ✓ it is evaluated at run time
+  ✓ it can also be a function
+
+58. `Reflect` basics
+  Reflect is special, it is different to e.g. `Object`
+    ✓ is not a function
+    ✓ it can not be instantiated
+    ✓ has no `call` method (as opposed to e.g. Object)
+  some `Reflect` usages
+    ✓ `Reflect.construct()` is like new
+    ✓ `Reflect.get()` returns a property`s value
+    ✓ `Reflect.has()` is like `in` just as a function
+
+59. `Reflect.apply` calls a target function
+  ✓ it is a static method
+  ✓ it calls a callable, e.g. a function
+  ✓ passing it a non-callable throws a TypeError
+  ✓ the second argument is the scope (or the `this`)
+  ✓ the 3rd argument is an array of parameters passed to the call
+
+60. `Reflect.getPrototypeOf` returns the prototype
+  ✓ works like `Object.getPrototypeOf`
+  ✓ throws a TypeError for a non-object
+  ✓ a `new Set()` has a prototype
+  ✓ for a class, it is `Klass.prototype`
+  ✓ for a old-style class, works too
+  ✓ an array has a prototype too
+
+61. use `import` to import functions that have been exported (somewhere else)
+  the import statement
+    ✓ is only allowed on the root level
+    ✓ import an entire module using `import <name> from "<moduleName>"`
+  import members
+    ✓ import a single member, using `import {<memberName>} from "module"`
+    separate multiple members with a comma
+      ✓ `deepEqual` from the assert module
+      ✓ `notEqual` from the assert module
+  alias imports
+    ✓ using `member as alias` as memberName
+    ✓ rename the default export of a module, using `default as alias` as memberName
+
+62. `map.has()` indicates whether an element with a key exists
+  ✓ finds nothing in an empty map
+  ✓ finds an element by it`s key
+  ✓ finds `undefined` as key too
+  ✓ does not coerce keys
+  ✓ after removal (using `map.delete(<key>)`) it doesnt find the element anymore
+  ✓ adding an item (using `map.set(key, value)`) later will make `has()` return true
+
+63. `string.includes()` finds string within another string
+  find a single character
+    ✓ in a three char string
+    ✓ reports false if character was not found
+  find a string
+    ✓ that matches exactly
+  search for an empty string, is always true
+    ✓ in an empty string
+    ✓ in `abc`
+  special/corner cases
+    ✓ search for `undefined` in a string fails
+    ✓ searches case-sensitive
+    ✓ must NOT be a regular expression
+    coerces the searched "thing" into a string
+      ✓ e.g. from a number
+      ✓ e.g. from an array
+      ✓ e.g. from an object, with a `toString()` method
+  takes a position from where to start searching
+    ✓ does not find `a` after position 1 in `abc`
+    ✓ even the position gets coerced
+    invalid positions get converted to 0
+      ✓ e.g. `undefined`
+      ✓ negative numbers
+      ✓ NaN
+
+64. `set.delete()` deletes an element from a set
+  use `delete(<value>)` to delete an element
+    ✓ `delete()` returns `true` when the element was found
+    ✓ and the size decreases
+  if nothing was deleted (no element with the given value was found)
+    ✓ returns `false`
+  `undefined` is a valid value in a set
+    ✓ deleting it, when it is not in the set, returns `false` too
+    ✓ `delete()` removes it, when its in the set
+  the value does NOT get casted
+    ✓ number 1 is different to string "1"
+
+65. `Set` API overview
+  ✓ a Set can be created from an array
+  ✓ `size` is the number of values
+  ✓ `add()` appends the given value
+  ✓ `clear()` removes all elements
+  ✓ `delete()` removes the given value
+  ✓ `entries()` returns an iterator for all values
+  ✓ `forEach()` calls a callback for each value
+  ✓ `has()` returns true if the given value is in the set
+  returns an iterator that contains all values
+    ✓ `keys()`
+    ✓ `values()`
+    ✓ `[Symbol.iterator]()`
+
+66. An object literal can also contain getters
+  ✓ just prefix the property with `get` (and make it a function)
+  ✓ must have NO parameters
+  ✓ can be a computed property (an expression enclosed in `[]`)
+  ✓ can be removed using delete
+
+67. An object literal can also contain setters
+  defining: a setter
+    ✓ by prefixing the property with `set` (and make it a function)
+    ✓ must have exactly one parameter
+    ✓ can be a computed property (an expression enclosed in `[]`)
+  working with/on the setter
+    ✓ you can use `delete` to remove the property (including it`s setter)
+
+68. `Reflect.construct` is the `new` operator as a function
+  the function itself
+    ✓ is static on the `Reflect` object
+    ✓ is of type `function`
+  the 1st parameter is the constructor to be invoked
+    ✓ fails when given a number as constructor
+    ✓ works giving a function
+    ✓ works giving a class
+  the 2nd parameter is a list of arguments, that will be passed to the constructor
+    ✓ fails when it`s not an array(-like), e.g. a number
+    ✓ works with an array-like object (the `length` property look up should not throw)
+    ✓ works with a real array
+  in use
+    ✓ giving it a class it returns an instance of this class
+    the list of arguments are passed to the constructor as given
+      ✓ if none given, nothing is passed
+      ✓ passing an array, all args of any type are passed
+  the length property
+    ✓ of `Reflect.construct` is 2
+
+69. `Reflect.defineProperty()` is like `Object.defineProperty()` but returns a Boolean.
+  the function itself
+    ✓ is static on the `Reflect` object
+    ✓ is of type `function`
+  the 1st parameter is the object on which to define a property
+    ✓ fails if it is not an object
+    ✓ accepts an object
+    ✓ accepts an instance (of a class)
+  2nd parameter is the name of the property to be defined on the object (normally a string)
+    ✓ works with a `normal` string
+    ✓ a number gets converted into a string
+    ✓ `undefined` also gets converted into a string (watch out!)
+    ✓ it can be a symbol
+  the `value` is part of the 3rd parameter, given as a property in an object `{value: ...}`
+    ✓ contains the initial value of the property, as an object in the property `value`
+    ✓ can be of any type (even itself)
+  the return value of the function indicates wether the property was defined successfully
+    returns true
+      ✓ when the property was created (which requires the 3rd parameter too!!!)
+      ✓ no matter what the value of the property is (just the 3rd param has to exist as `{}`)
+    returns false
+      ✓ when no property name is given (since no property has been added)
+      ✓ when no 3rd parameter, the descriptor is given
+
+70. `clear()` removes all elements from a Set object.
+  ✓ `set.size` becomes 0
+  ✓ the iterator `set.entries()` will not contain any items
+  ✓ any call to `set.has()` returns false
+  ✓ returns `undefined`
+
+71. `str.repeat(x)` appends `x` copies of `str` to each other and returns it
+  pass the count to `str.repeat(count)`
+    ✓ for `1` the string stays the same
+    ✓ for `3` the string `x` becomes `xxx`
+    ✓ for `0` an empty string is returned
+    ✓ the count is not an int, such as "3", it gets coerced to an int
+  throws an error for
+    ✓ a count of <0
+    ✓ a count of +Infinty
+  accepts everything that can be coerced to a string
+    ✓ e.g. a boolean
+    ✓ e.g. a number
+  for my own (string) class
+    ✓ calls `toString()` to make it a string
+    ✓ `toString()` is only called once
+
+72. `str.startsWith(searchString)` determines whether `str` begins with `searchString`.
+  1st parameter, the string to search for
+    ✓ works with just a character
+    ✓ works with a string
+    ✓ works with unicode characters
+    ✓ a regular expression throws a TypeError
+  2nd parameter, the position where to start searching from
+    ✓ find "str" at position 4
+    ✓ `undefined` is the same as 0
+    ✓ the parameter gets coerced to an int
+    ✓ a value larger than the string`s length, returns false
+  transfer the functionality to other objects
+    ✓ e.g. a boolean
+    ✓ e.g. a number
+    ✓ also using the position works
+
+73. `return` in a generator function is special
+  the returned value is an IteratorResult (just like any value returned via `yield`)
+    ✓ returns an IteratorResult (an object with the properties `value` and `done`)
+    ✓ the property `value` is the value given after the `return` statement
+    ✓ the property `done` is true
+    ✓ NOTE: `yield` does not return `done=true` but `done=false`!
+    ✓ a missing `return` returns {value: undefined, done: true}
+  mixing `return` and `yield`
+    ✓ is possible
+    ✓ the mix behaves different to two `yield`s
+    ✓ two `yield`s returning values
+    ✓ returning a yielded value
+
+74. `str.endsWith(searchString)` determines whether `str` ends with `searchString`.
+  1st parameter, the string to search for
+    ✓ works with just a character
+    ✓ works with a string
+    ✓ works with unicode characters
+    ✓ a regular expression throws a TypeError
+  2nd parameter, searches within this string as if this string were only this long
+    ✓ find "el" at a substring of the length 2
+    ✓ `undefined` uses the entire string
+    ✓ the parameter gets coerced to an int
+    value less than 0
+      ✓ returns `true`, when searching for an empty string
+      ✓ return `false`, when searching for a non-empty string
+  transfer the functionality to other objects
+    ✓ e.g. a boolean
+    ✓ e.g. a number
+    ✓ also using the position works
+
+75. a Promise represents an operation that hasn`t completed yet, but is expected in the future
+  ✓ `Promise` is a global function
+  the constructor
+    ✓ instantiating it without params throws
+    ✓ expects a function as parameter
+  simplest promises
+    ✓ resolve a promise by calling the `resolve` function given as first parameter
+    ✓ the `resolve` function can return a value, that is consumed by the `promise.then()` callback
+    ✓ rejecting a promise is done by calling the callback given as 2nd parameter
+  an asynchronous promise
+    ✓ can resolve later, also by calling the first callback (103ms)
+    ✓ reject it at some later point in time, calling the 2nd callback (106ms)
+  test library (mocha here) support for promises
+    ✓ just returning the promise makes the test library check that the promise resolves
+
+76. a promise can be created in multiple ways
+  creating a promise fails when
+    ✓ using `Promise` as a function
+    ✓ no parameter is passed
+    ✓ passing a non-callable throws too
+  most commonly Promises get created using the constructor
+    ✓ by passing a resolve function to it
+    ✓ by passing a resolve and a reject function to it
+  `Promise.all()` returns a promise that resolves when all given promises resolve
+    ✓ returns all results
+    ✓ is rejected if one rejects
+  `Promise.race()` returns the first settled promise
+    ✓ if it resolves first, the promises resolves
+    ✓ if one of the given promises rejects first, the returned promise is rejected
+  `Promise.resolve()` returns a resolving promise
+    ✓ if no value given, it resolves with `undefined`
+    ✓ resolves with the given value
+  `Promise.reject()` returns a rejecting promise
+    ✓ if no value given, it rejects with `undefined`
+    ✓ the parameter passed to `reject()` can be used in the `.catch()`
+
+77. chaining multiple promises can enhance readability
+  prerequisites for understanding
+    ✓ reminder: the test passes when a fulfilled promise is returned
+    ✓ a function given to `then()` fulfills (if it doesnt throw)
+  chain promises
+    ✓ `then()` receives the result of the promise it was called on
+    ✓ multiple `then()`s can be chained
+    ✓ order of the `then()`s matters
+    ✓ any of the things given to `then()` can resolve asynchronously (the real power of Promises) (102ms)
+    ✓ also asynchronously, the order still matters, promises wait, but don`t block (208ms)
+
+78. `Promise` API overview
+  ✓ `new Promise()` requires a function as param
+  resolving a promise
+    ✓ via constructor parameter `new Promise((resolve) => { resolve(); })`
+    ✓ using `Promise.resolve()`
+  a rejected promise
+    ✓ using the constructor parameter
+    ✓ via `Promise.reject()`
+  `Promise.all()`
+    ✓ `Promise.all([p1, p2])` resolves when all promises resolve
+    ✓ `Promise.all([p1, p2])` rejects when a promise is rejected
+  `Promise.race()`
+    ✓ `Promise.race([p1, p2])` resolves when one of the promises resolves
+    ✓ `Promise.race([p1, p2])` rejects when one of the promises rejects
+    ✓ `Promise.race([p1, p2])` order matters (and timing)
+
+469 passing (658ms)
